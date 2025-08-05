@@ -27,4 +27,16 @@ pub mod anchor_orderbook {
         ctx.accounts.transfer_to_vault(listed_token_amount)?;
         Ok(())
     }
+
+    pub fn resolve_order(
+        ctx: Context<ResolveOrder>,
+        buyer: Pubkey,
+        seller: Pubkey,
+        amount: u64,
+    ) -> Result<()> {
+        ctx.accounts.transfer_from_buyer_to_seller(amount)?;
+        ctx.accounts.transfer_from_seller_to_buyer(amount)?;
+        ctx.accounts.update_orders(amount)?;
+        Ok(())
+    }
 }
