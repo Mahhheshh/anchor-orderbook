@@ -21,8 +21,13 @@ pub mod anchor_orderbook {
         listed_token_price: u64,
         order_type: OrderType,
     ) -> Result<()> {
-        ctx.accounts
-            .create_order(listed_token_amount, listed_token_price, order_type, seed, &ctx.bumps)?;
+        ctx.accounts.create_order(
+            listed_token_amount,
+            listed_token_price,
+            order_type,
+            seed,
+            &ctx.bumps,
+        )?;
 
         ctx.accounts.transfer_to_vault(listed_token_amount)?;
         Ok(())
@@ -37,6 +42,11 @@ pub mod anchor_orderbook {
         ctx.accounts.transfer_from_buyer_to_seller(amount)?;
         ctx.accounts.transfer_from_seller_to_buyer(amount)?;
         ctx.accounts.update_orders(amount)?;
+        Ok(())
+    }
+
+    pub fn close_order(ctx: Context<CancelOrder>) -> Result<()> {
+        ctx.accounts.transfer_back_and_close()?;
         Ok(())
     }
 }
