@@ -3,10 +3,12 @@ use anchor_lang::prelude::*;
 mod constants;
 mod instructions;
 mod state;
+mod error;
 
 use constants::*;
 use instructions::*;
 use state::*;
+use error::*;
 
 declare_id!("AtB8TJoE6YShYh7RdiroVTakjGBbKiMNC5Hn948Y5Pv7");
 
